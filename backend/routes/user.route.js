@@ -61,39 +61,45 @@ router.post("/sign-up", async (req, res) => {
 });
 
 //sign-in
-router.post("/api/signin", async (req, res) => {
-   try {
-       const{ username, password} = req.body;
+router.post("/api/v1/signin", async (req, res) => {
+  try {
+    const { username, password } = req.body;
 
-       const existingUsername = await User.findOne({username});
-       if(!existingUsername){
-        res.status(400).json({
-          message: "Invalid credentials"
-        })
-       }
-
-       await bcrypt.compare(password, existingUsername.password,(err, data) =>{
-        if(!data){
-          const authClaims = [
-            {name:existingUsername.username},
-            {role: existingUsername.role},
-          ]
-          const token = jwt.sign({
-            authClaims}, "bookstore123", {expiresIn: "30d"})
-          res.status(200).json({
-            id: existingUsername.id, 
-            role: existingUsername.role, 
-            token: token, 
-          });
-        }
-        else{
-          res.status(400).json({message: "Invalid credentials"});
-        }
-       });
-   } catch (error) {
-      res.status(500).json({
-        message:"Internal server error"
+    // Check if username exists
+    const existingUsername = await User.findOne({ username });
+    if (!existingUsername) {
+      return res.status(400).json({
+        message: "Invalid credentials",
       });
-   }
+    }
+
+    // Compare password
+    const isPasswordMatch = await bcrypt.compare(password, existingUsername.password);
+    if (!isPasswordMatch) {
+      return res.status(400).json({
+        message: "Invalid credentials",
+      });
+    }
+
+    // Create JWT token
+    const token = jwt.sign(
+      { username: existingUsername.username, role: existingUsername.role },
+      "bookstore123",
+      { expiresIn: "30d" }
+    );
+
+    // Respond with success
+    return res.status(200).json({
+      id: existingUsername.id,
+      role: existingUsername.role,
+      token: token,
+    });
+  } catch (error) {
+    console.error("Error during signin:", error);
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  }
 });
+
 module.exports = router;

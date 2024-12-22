@@ -8,7 +8,7 @@ app.use(express.json());
 
 //routes
 app.use("/api/v1",user);
-// app.use("/api/v1", user);
+// app.use("/api/v1", router);
 
 //creating port
 app.listen(process.env.PORT,()=>{
