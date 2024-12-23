@@ -65,41 +65,41 @@ router.post("/api/v1/signin", async (req, res) => {
   try {
     const { username, password } = req.body;
 
+    // Validate input
+    if (!username || !password) {
+      return res.status(400).json({ message: "Username and password are required" });
+    }
+
     // Check if username exists
-    const existingUsername = await User.findOne({ username });
-    if (!existingUsername) {
-      return res.status(400).json({
-        message: "Invalid credentials",
-      });
+    const existingUser = await User.findOne({ username: username.trim() });
+    if (!existingUser) {
+      return res.status(400).json({ message: "Invalid credentials" });
     }
 
     // Compare password
-    const isPasswordMatch = await bcrypt.compare(password, existingUsername.password);
+    const isPasswordMatch = await bcrypt.compare(password, existingUser.password);
     if (!isPasswordMatch) {
-      return res.status(400).json({
-        message: "Invalid credentials",
-      });
+      return res.status(400).json({ message: "Invalid credentials" });
     }
 
     // Create JWT token
     const token = jwt.sign(
-      { username: existingUsername.username, role: existingUsername.role },
-      "bookstore123",
+      { username: existingUser.username, role: existingUser.role },
+      process.env.JWT_SECRET || "bookstore123",
       { expiresIn: "30d" }
     );
 
     // Respond with success
     return res.status(200).json({
-      id: existingUsername.id,
-      role: existingUsername.role,
+      id: existingUser._id, // Use `_id` instead of `id` for MongoDB
+      role: existingUser.role,
       token: token,
     });
   } catch (error) {
     console.error("Error during signin:", error);
-    return res.status(500).json({
-      message: "Internal server error",
-    });
+    return res.status(500).json({ message: "Internal server error" });
   }
 });
+
 
 module.exports = router;

@@ -6,11 +6,12 @@ const user = require("./routes/user.route");
 
 app.use(express.json());
 
-//routes
-app.use("/api/v1",user);
-// app.use("/api/v1", router);
+// Routes
+app.use("/api/v1", user);
 
-//creating port
-app.listen(process.env.PORT,()=>{
-  console.log(`server started at port ${process.env.PORT}`);
+
+// Creating port
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server started at http://localhost:${PORT}`);
 });
