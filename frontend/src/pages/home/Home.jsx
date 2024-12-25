@@ -1,11 +1,14 @@
 import Banner from "./Banner"
-import TopSellers from "./TopSellers"
+import Recommended from "./Recommended";
+import TopSellers from "./TopSellers";
+
 
 function Home() {
   return (
     <>
        <Banner/>
        <TopSellers/>
+       <Recommended/>
     </>
   )
 }
