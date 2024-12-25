@@ -2,7 +2,15 @@ import { FiShoppingCart } from 'react-icons/fi';
 import getImgurl from '../../utils/gettingUrl';
 import {Link} from 'react-router-dom';
 
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../redux/features/cart/cartSlice';
+
 export const BookCart = ( {book} ) => {
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (product) =>{
+    dispatch(addToCart(product))
+  }
   return (
     <div className=" rounded-lg transition-shadow duration-300">
     <div
@@ -28,7 +36,9 @@ export const BookCart = ( {book} ) => {
         <p className="font-medium mb-5">
           ${book?.newPrice} <span className="line-through font-normal ml-2">${book?.oldPrice}</span>
         </p>
-        <button className="bg-primary px-6 space-x-1 flex items-center gap-1 ">
+        <button 
+        onClick={() => handleAddToCart(book)}
+        className="bg-primary px-6 space-x-1 flex items-center gap-1 ">
           <FiShoppingCart className="" />
           <span>Add to Cart</span>
         </button>
