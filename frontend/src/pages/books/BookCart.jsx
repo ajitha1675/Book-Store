@@ -28,7 +28,7 @@ export const BookCart = ( {book} ) => {
         <p className="font-medium mb-5">
           ${book?.newPrice} <span className="line-through font-normal ml-2">${book?.oldPrice}</span>
         </p>
-        <button className="btn-primary px-6 space-x-1 flex items-center gap-1 ">
+        <button className="bg-primary px-6 space-x-1 flex items-center gap-1 ">
           <FiShoppingCart className="" />
           <span>Add to Cart</span>
         </button>
