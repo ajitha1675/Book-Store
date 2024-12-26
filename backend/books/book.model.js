@@ -18,7 +18,7 @@ const bookSchema = new mongoose.Schema({
       required: true
     },
     coverImage:{
-      type: Boolean,
+      type: String,
       required: true
     },
     oldPrice:{
@@ -34,3 +34,7 @@ const bookSchema = new mongoose.Schema({
 },{
   timestamps: true,
 });
+
+const Book = mongoose.model('Book', bookSchema);
+
+module.exports = Book;
