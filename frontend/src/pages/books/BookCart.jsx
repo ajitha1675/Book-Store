@@ -1,5 +1,5 @@
 import { FiShoppingCart } from 'react-icons/fi';
-import getImgurl from '../../utils/gettingUrl';
+import getImgurl from '../../utils/getImgUrl';
 import {Link} from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
