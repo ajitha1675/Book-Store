@@ -1,17 +1,22 @@
 const express = require("express");
 const app = express();
-require("dotenv").config();
-require("./connection/connect");
-const user = require("./routes/user.route");
 
-app.use(express.json());
-
-// Routes
-app.use("/api/v1", user);
-
+const mongoose = require('mongoose');
 
 // Creating port
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+require('dotenv').config()
+
+async function main() {
+     await mongoose.connect(process.env.DB_URI);
+     app.use("/", (req,res) =>{
+      res.send("Book store server is running:");
+     });
+}
+
+main().then(() => console.log("Mongodb connected successfully!")
+).catch(err => console.log(err));
+
+ app.listen(PORT, () => {
   console.log(`Server started at http://localhost:${PORT}`);
 });
