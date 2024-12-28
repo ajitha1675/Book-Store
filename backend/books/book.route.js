@@ -14,7 +14,7 @@ const { postABook, getAllBooks, getSingleBook, updateBook, deleteABook } = requi
 router.post('/create-book', postABook)
 
 //get all books
-router.get('/get-book', getAllBooks)
+router.get('/', getAllBooks)
 
 //single book endpoint
 router.get("/:id", getSingleBook)
