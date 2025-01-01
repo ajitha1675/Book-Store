@@ -13,7 +13,7 @@ export const AuthProvide = ({Children}) =>{
      const [loading, setLoading] = useState(true);
 
      //register a user
-     const registerUser = async(email, password)=>{
+     const registerUser = async(email, password )=>{
       return await createUserWithEmailAndPassword(auth, email, password);
 
      }
