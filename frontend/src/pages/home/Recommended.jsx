@@ -11,11 +11,12 @@ import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { useFetchAllBooksQuery } from '../../redux/features/cart/booksApi';
+import { useFetchAllBooksQuery } from '../../redux/features/books/booksApi';
+
 
 
 const Recommended = () => {
-     const {data: books= [] } = useFetchAllBooksQuery();  
+     const {data: books= [] } = useFetchAllBooksQuery(); 
     
   return (
     <div className='py-16'>

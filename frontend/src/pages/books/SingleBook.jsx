@@ -5,12 +5,13 @@ import { useParams } from "react-router-dom"
 
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/features/cart/cartSlice';
-import { useFetchAllBooksQuery } from '../../redux/features/cart/booksApi';
+
 import getImgurl from '../../utils/getImgUrl';
+import { useFetchBookByIdQuery } from '../../redux/features/books/booksApi';
 
 const SingleBook = () => {
     const {id} = useParams();
-    const {data: book, isLoading, isError} = useFetchAllBooksQuery(id);
+    const {data: book, isLoading, isError} = useFetchBookByIdQuery(id);
 
     const dispatch =  useDispatch();
 
