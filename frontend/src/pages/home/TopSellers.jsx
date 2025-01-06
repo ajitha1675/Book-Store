@@ -14,7 +14,7 @@ import 'swiper/css/navigation';
 import { useFetchAllBooksQuery } from "../../redux/features/books/booksApi";
 
 
-const categories = ["Choose a general", "Business", "Fiction","Horror","Advanture"]
+const categories = ["Choose a general", "Business", "Fiction" ,"Horror","Advanture"]
 
 const TopSellers = () => {
   
